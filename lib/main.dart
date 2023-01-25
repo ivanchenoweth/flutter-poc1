@@ -25,10 +25,32 @@ class _InicioState extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Mi App"),
-      ),
-      body: const Center(child: Text("Contenido")),
-    );
+        appBar: AppBar(
+          title: const Text("Mi App"),
+        ),
+        body: ListView(
+          children: [
+            Container(
+              padding: EdgeInsets.all(20.0),
+              child: Image.network(
+                  "https://images-cdn.9gag.com/photo/aYK8R1m_460s.jpg"),
+            ),
+            Container(
+              padding: EdgeInsets.all(50.0),
+              child: Image.network(
+                  "https://images-cdn.9gag.com/photo/aYK8R1m_460s.jpg"),
+            ),
+            Container(
+              padding: EdgeInsets.all(50.0),
+              child: Image.network(
+                  "https://images-cdn.9gag.com/photo/aYK8R1m_460s.jpg"),
+            ),
+            Container(
+              padding: EdgeInsets.all(50.0),
+              child: Image.network(
+                  "https://images-cdn.9gag.com/photo/aYK8R1m_460s.jpg"),
+            ),
+          ],
+        ));
   }
 }
