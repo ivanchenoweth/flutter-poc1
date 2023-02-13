@@ -10,7 +10,6 @@ class MiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: "Filas y Columnas",
       home: Inicio(),
     );
   }
