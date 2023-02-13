@@ -27,21 +27,12 @@ class _InicioState extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Filas columnas y botones"),
-        ),
-        body: Center(
-            child: ElevatedButton(
-          // ignore: prefer_const_literals_to_create_immutables
-          child: Row(mainAxisSize: MainAxisSize.min, children: [
-            Icon(Icons.access_time),
-            SizedBox(width: 7),
-            const Text("Hola2"),
-          ]),
-          onPressed: () {
-            var t = DateTime.now();
-            print(t);
-          },
-        )));
+      appBar: AppBar(
+        title: const Text("Tema del video"),
+      ),
+      body: Center(
+        child: const Text("Hola"),
+      ),
+    );
   }
 }
