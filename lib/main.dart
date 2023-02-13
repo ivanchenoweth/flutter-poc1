@@ -75,13 +75,10 @@ Widget nombre() {
 
 Widget botonEntrar() {
   return TextButton(
-    onPressed: () {},
-    style: TextButton.styleFrom(
-      primary: Colors.purpleAccent, // Text Color
-    ),
-    child: const Text(
-      'Text Button ',
-      style: TextStyle(fontSize: 24),
-    ),
-  );
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.purple,
+      ),
+      child:
+          Text("Entrar", style: TextStyle(fontSize: 25, color: Colors.white)),
+      onPressed: () {});
 }
