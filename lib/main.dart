@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MiApp());
@@ -8,7 +10,7 @@ class MiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: "MiApp",
+      title: "Filas y Columnas",
       home: Inicio(),
     );
   }
@@ -26,31 +28,20 @@ class _InicioState extends State<Inicio> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Mi App"),
+          title: const Text("Filas columnas y botones"),
         ),
-        body: ListView(
-          children: [
-            Container(
-              padding: EdgeInsets.all(20.0),
-              child: Image.network(
-                  "https://images-cdn.9gag.com/photo/aYK8R1m_460s.jpg"),
-            ),
-            Container(
-              padding: EdgeInsets.all(50.0),
-              child: Image.network(
-                  "https://images-cdn.9gag.com/photo/aYK8R1m_460s.jpg"),
-            ),
-            Container(
-              padding: EdgeInsets.all(50.0),
-              child: Image.network(
-                  "https://images-cdn.9gag.com/photo/aYK8R1m_460s.jpg"),
-            ),
-            Container(
-              padding: EdgeInsets.all(50.0),
-              child: Image.network(
-                  "https://images-cdn.9gag.com/photo/aYK8R1m_460s.jpg"),
-            ),
-          ],
-        ));
+        body: Center(
+            child: ElevatedButton(
+          // ignore: prefer_const_literals_to_create_immutables
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            Icon(Icons.access_time),
+            SizedBox(width: 7),
+            const Text("Hola2"),
+          ]),
+          onPressed: () {
+            var t = DateTime.now();
+            print(t);
+          },
+        )));
   }
 }
