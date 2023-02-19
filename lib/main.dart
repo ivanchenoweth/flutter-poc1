@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:primera_app_curso/pages/pagina02.dart';
 
 void main() => runApp(const MiApp());
 
@@ -27,10 +28,22 @@ class _InicioState extends State<Inicio> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tema del video"),
+        title: const Text("06 Navegacion"),
       ),
       body: Center(
-        child: const Text("Hola"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Hola"),
+            ElevatedButton(
+              child: Text("Ir a la otra Pagina"),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Pagina02()));
+              },
+            )
+          ],
+        ),
       ),
     );
   }
