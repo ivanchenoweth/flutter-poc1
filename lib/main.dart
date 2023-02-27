@@ -1,6 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_initializing_formals, unused_field, unrelated_type_equality_checks
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:primera_app_curso/models/Gif.dart';
+import 'package:http/http.dart' as http;
 
 void main() => runApp(const MiApp());
 
@@ -23,15 +27,74 @@ class Inicio extends StatefulWidget {
 }
 
 class _InicioState extends State<Inicio> {
+  Future<List<Gif>>? _listadoGifs;
+
+  Future<List<Gif>> _getGifs() async {
+    String url =
+        "https://api.giphy.com/v1/gifs/trending?api_key=GDHkHx9F5WfVj6cvVTyjscoFfMSLNbpa&limit=10&rating=g";
+    final response = await http.get(Uri.parse(url));
+
+    List<Gif> gifs = [];
+
+    if (response.statusCode == 200) {
+      String body = utf8.decode(response.bodyBytes);
+      final jsonData = jsonDecode(body);
+      for (var item in jsonData["data"]) {
+        gifs.add(Gif(item["title"], item["images"]["downsized"]["url"]));
+      }
+      return gifs;
+    } else {
+      throw Exception("La conexion ha fallado");
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _listadoGifs = _getGifs();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Tema del video"),
-      ),
-      body: Center(
-        child: const Text("Hola"),
-      ),
+    var futureBuilder = FutureBuilder(
+      future: _listadoGifs,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView(
+            children: _listGifs(snapshot.data),
+          );
+        } else if (snapshot.hasError) {
+          print(snapshot.error);
+          return Text("Error");
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("HTTP REST API - 2023 - V7"),
+        ),
+        body: futureBuilder);
+  }
+
+  List<Widget> _listGifs(List<Gif>? data) {
+    List<Widget> gifs = [];
+
+    for (var gif in data!) {
+      gifs.add(Card(
+          child: Column(
+        children: [
+          Image.network(gif.url),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(gif.name),
+          ),
+        ],
+      )));
+    }
+    return gifs;
   }
 }
