@@ -30,6 +30,7 @@ class _InicioState extends State<Inicio> {
   Future<List<Gif>>? _listadoGifs;
 
   Future<List<Gif>> _getGifs() async {
+    print("Llamando a la url");
     String url =
         "https://api.giphy.com/v1/gifs/trending?api_key=GDHkHx9F5WfVj6cvVTyjscoFfMSLNbpa&limit=10&rating=g";
     final response = await http.get(Uri.parse(url));
@@ -37,6 +38,7 @@ class _InicioState extends State<Inicio> {
     List<Gif> gifs = [];
 
     if (response.statusCode == 200) {
+      print("status 200");
       String body = utf8.decode(response.bodyBytes);
       final jsonData = jsonDecode(body);
       for (var item in jsonData["data"]) {
@@ -61,7 +63,8 @@ class _InicioState extends State<Inicio> {
       future: _listadoGifs,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView(
+          return GridView.count(
+            crossAxisCount: 2,
             children: _listGifs(snapshot.data),
           );
         } else if (snapshot.hasError) {
@@ -75,7 +78,7 @@ class _InicioState extends State<Inicio> {
     );
     return Scaffold(
         appBar: AppBar(
-          title: const Text("HTTP REST API - 2023 - V7"),
+          title: const Text("HTTP REST API - 2023 - V8"),
         ),
         body: futureBuilder);
   }
@@ -87,11 +90,11 @@ class _InicioState extends State<Inicio> {
       gifs.add(Card(
           child: Column(
         children: [
-          Image.network(gif.url),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(gif.name),
-          ),
+          Expanded(
+              child: Image.network(
+            gif.url,
+            fit: BoxFit.fill,
+          )),
         ],
       )));
     }
